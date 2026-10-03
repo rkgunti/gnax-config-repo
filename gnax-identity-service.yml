@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: postgresql://127.0.0.1:30432/devdb
+    username: devuser
+    password: AppPassword123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+
+jwt:
+  issuer: gnax-identity-service
+  access-token-expiration: 900
+  refresh-token-expiration: 604800
