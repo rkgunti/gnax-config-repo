@@ -1,7 +1,18 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            # One block per service. Public path: /gnax/<original path>; "/gnax" is stripped before forwarding.
+            - id: identity-service
+              uri: http://gnax-identity-service.dev.svc.cluster.local:8080
+              predicates:
+                - Path=/gnax/api/v1/auth/**
+              filters:
+                - StripPrefix=1
+
 gnax:
   jwt:
     issuer: gnax-identity-service
     public-key: '{cipher}5b7c15656d44ab8c8f7ae089cb52b2826257fdb920cfbe59808c525e1440f25cc053a53f9787a77422899fda2ed2397246b47f6faf22794dc4768046ce883c5fb86488f352579656666bd8928395480193d91ef097c07c30652e6763372731f1a913b37e7a66c1f0e20789705c52e88068a50deb6d0558c32e44d779ff46a58838787396d261792aac410f0bafd4f3fa4a66b55d51ded2772d450f6ecefa8870468f32d71139cfdb401875ec04d88145973f770d5591bb053ed7221271eaec914925e3b65f1ed53be8bbb72bf4a18d9d070d9b4f0d547164e39dbc617ccb03d5a277a0ccf948576dff7932f93028b62ea9eedc3f5bbb3e3d9fa282cff0fab3dcd564f9f7c64dabbabd24f4ef106bafb0e1280ebcae81ed4e3768f51e6cc9d61c395a3da9a11fb8cb72f796f5ff68e77f895aa4743d36ae9abc7476d85d8c7ef5ea1cd0c41b6030847f2b6285acb4ca300776a3be569e4186a9d098e3ecc71b903e7e8c251633d1fe05d675cd46347412ead038736f7e1cafe7d3c28b2209b5dc4de3893d083c87a23f275fc92ff8f4c02dd570232749d08fc7889f153fcf35493f9efc8816052d3f7bf40be2acf4aa3dec1b680767ac6d0ff4161e2ac13f61a6e0601e74376e46e5d1c9764602e95d97d41e2a193462066f1f7d9866e92820bf'
-  gateway:
-    services:
-      identity-uri: http://gnax-identity-service.dev.svc.cluster.local:8080
