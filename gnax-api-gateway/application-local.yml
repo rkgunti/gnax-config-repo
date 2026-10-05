@@ -1,0 +1,4 @@
+gnax:
+  gateway:
+    services:
+      identity-uri: http://localhost:30081
